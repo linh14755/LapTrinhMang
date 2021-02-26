@@ -1,0 +1,13 @@
+C:\Users\Vuong\Downloads\lab01\lab01\bin\Debug\lab01.exe.config
+C:\Users\Vuong\Downloads\lab01\lab01\bin\Debug\lab01.exe
+C:\Users\Vuong\Downloads\lab01\lab01\bin\Debug\lab01.pdb
+C:\Users\Vuong\Downloads\lab01\lab01\obj\Debug\lab01.csprojResolveAssemblyReference.cache
+C:\Users\Vuong\Downloads\lab01\lab01\obj\Debug\lab01.exe
+C:\Users\Vuong\Downloads\lab01\lab01\obj\Debug\lab01.pdb
+D:\LapTrinhMang\Lab1\lab01\lab01\bin\Debug\lab01.exe.config
+D:\LapTrinhMang\Lab1\lab01\lab01\bin\Debug\lab01.exe
+D:\LapTrinhMang\Lab1\lab01\lab01\bin\Debug\lab01.pdb
+D:\LapTrinhMang\Lab1\lab01\lab01\obj\Debug\lab01.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab1\lab01\lab01\obj\Debug\lab01.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab1\lab01\lab01\obj\Debug\lab01.exe
+D:\LapTrinhMang\Lab1\lab01\lab01\obj\Debug\lab01.pdb

@@ -1,0 +1,13 @@
+D:\LapTrinhMang\Lab1\Lab01_Bai02\bin\Debug\netcoreapp3.1\Lab01_Bai02.exe
+D:\LapTrinhMang\Lab1\Lab01_Bai02\bin\Debug\netcoreapp3.1\Lab01_Bai02.deps.json
+D:\LapTrinhMang\Lab1\Lab01_Bai02\bin\Debug\netcoreapp3.1\Lab01_Bai02.runtimeconfig.json
+D:\LapTrinhMang\Lab1\Lab01_Bai02\bin\Debug\netcoreapp3.1\Lab01_Bai02.runtimeconfig.dev.json
+D:\LapTrinhMang\Lab1\Lab01_Bai02\bin\Debug\netcoreapp3.1\Lab01_Bai02.dll
+D:\LapTrinhMang\Lab1\Lab01_Bai02\bin\Debug\netcoreapp3.1\Lab01_Bai02.pdb
+D:\LapTrinhMang\Lab1\Lab01_Bai02\obj\Debug\netcoreapp3.1\Lab01_Bai02.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab1\Lab01_Bai02\obj\Debug\netcoreapp3.1\Lab01_Bai02.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab1\Lab01_Bai02\obj\Debug\netcoreapp3.1\Lab01_Bai02.AssemblyInfoInputs.cache
+D:\LapTrinhMang\Lab1\Lab01_Bai02\obj\Debug\netcoreapp3.1\Lab01_Bai02.AssemblyInfo.cs
+D:\LapTrinhMang\Lab1\Lab01_Bai02\obj\Debug\netcoreapp3.1\Lab01_Bai02.dll
+D:\LapTrinhMang\Lab1\Lab01_Bai02\obj\Debug\netcoreapp3.1\Lab01_Bai02.pdb
+D:\LapTrinhMang\Lab1\Lab01_Bai02\obj\Debug\netcoreapp3.1\Lab01_Bai02.genruntimeconfig.cache

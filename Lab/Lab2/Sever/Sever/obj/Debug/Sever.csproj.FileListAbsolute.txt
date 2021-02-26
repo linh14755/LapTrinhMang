@@ -1,0 +1,7 @@
+D:\LapTrinhMang\Lab\Lab2\Sever\Sever\bin\Debug\Sever.exe.config
+D:\LapTrinhMang\Lab\Lab2\Sever\Sever\bin\Debug\Sever.exe
+D:\LapTrinhMang\Lab\Lab2\Sever\Sever\bin\Debug\Sever.pdb
+D:\LapTrinhMang\Lab\Lab2\Sever\Sever\obj\Debug\Sever.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab\Lab2\Sever\Sever\obj\Debug\Sever.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab\Lab2\Sever\Sever\obj\Debug\Sever.exe
+D:\LapTrinhMang\Lab\Lab2\Sever\Sever\obj\Debug\Sever.pdb
