@@ -1,0 +1,10 @@
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\bin\Debug\TCPClient_Async.exe.config
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\bin\Debug\TCPClient_Async.exe
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\bin\Debug\TCPClient_Async.pdb
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\obj\Debug\TCPClient_Async.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\obj\Debug\TCPClient_Async.Form1.resources
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\obj\Debug\TCPClient_Async.Properties.Resources.resources
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\obj\Debug\TCPClient_Async.csproj.GenerateResource.cache
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\obj\Debug\TCPClient_Async.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\obj\Debug\TCPClient_Async.exe
+D:\LapTrinhMang\Lab\Lab4\TCPClient_Async\TCPClient_Async\obj\Debug\TCPClient_Async.pdb

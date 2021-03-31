@@ -1,0 +1,10 @@
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\bin\Debug\TCPServer_Async.exe.config
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\bin\Debug\TCPServer_Async.exe
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\bin\Debug\TCPServer_Async.pdb
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\obj\Debug\TCPServer_Async.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\obj\Debug\TCPServer_Async.Form1.resources
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\obj\Debug\TCPServer_Async.Properties.Resources.resources
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\obj\Debug\TCPServer_Async.csproj.GenerateResource.cache
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\obj\Debug\TCPServer_Async.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\obj\Debug\TCPServer_Async.exe
+D:\LapTrinhMang\Lab\Lab4\TCPServer_Async\TCPServer_Async\obj\Debug\TCPServer_Async.pdb
