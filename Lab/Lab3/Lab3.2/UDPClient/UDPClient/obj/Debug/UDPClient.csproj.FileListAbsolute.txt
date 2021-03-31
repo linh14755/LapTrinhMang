@@ -1,0 +1,10 @@
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\bin\Debug\UDPClient.exe.config
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\bin\Debug\UDPClient.exe
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\bin\Debug\UDPClient.pdb
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\obj\Debug\UDPClient.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\obj\Debug\UDPClient.Form1.resources
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\obj\Debug\UDPClient.Properties.Resources.resources
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\obj\Debug\UDPClient.csproj.GenerateResource.cache
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\obj\Debug\UDPClient.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\obj\Debug\UDPClient.exe
+D:\LapTrinhMang\Lab\Lab3\Lab3.2\UDPClient\UDPClient\obj\Debug\UDPClient.pdb
