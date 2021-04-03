@@ -1,0 +1,12 @@
+D:\LapTrinhMang\Lab\lap-trinh-mang\ThuBaiThiDonGian\Common\bin\Debug\Common.dll
+D:\LapTrinhMang\Lab\lap-trinh-mang\ThuBaiThiDonGian\Common\bin\Debug\Common.pdb
+D:\LapTrinhMang\Lab\lap-trinh-mang\ThuBaiThiDonGian\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab\lap-trinh-mang\ThuBaiThiDonGian\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab\lap-trinh-mang\ThuBaiThiDonGian\Common\obj\Debug\Common.dll
+D:\LapTrinhMang\Lab\lap-trinh-mang\ThuBaiThiDonGian\Common\obj\Debug\Common.pdb
+D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\bin\Debug\Common.dll
+D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\bin\Debug\Common.pdb
+D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\obj\Debug\Common.dll
+D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\obj\Debug\Common.pdb
