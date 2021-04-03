@@ -22,7 +22,7 @@ namespace Client
         IPEndPoint IP;
         Socket client;
         Thread listenMain;
-        List<SinhVien> lsv;
+        string clientPath;
 
         int counter = 0;
         System.Timers.Timer countdown;
@@ -34,7 +34,7 @@ namespace Client
             countdown.Elapsed += Countdown_Elapsed;
             countdown.Interval = 1000;
 
-            cmdNopBaiThi.Enabled = false;
+            //cmdNopBaiThi.Enabled = false;
         }
 
 
@@ -96,7 +96,7 @@ namespace Client
                         case ServerResponseType.SendFile:
                             FileResponse fileResponse = container.Data as FileResponse;
                             string fileName = fileResponse.FileInfo.Name;
-                            string filePath = @"D:\" + fileName;
+                            string filePath = clientPath + @"\" + fileName;
                             lblDeThi.Text = filePath;
 
 
@@ -126,6 +126,7 @@ namespace Client
                             counter = (int)container.Data * 60;
                             lblThoiGian.Text = counter / 60 + " phút";
                             countdown.Enabled = true;
+                            cmdChapNhan.Enabled = false;
                             MessageBox.Show("Bắt đầu làm bài", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
 
@@ -133,17 +134,16 @@ namespace Client
                             break;
 
                         case ServerResponseType.LockClient:
+                            CloseConnect();
                             break;
                         case ServerResponseType.ExamSubjectsAndTime:
                             string[] s = container.Data.ToString().Split('^');
                             lblMonThi.Text = s[0];
                             lblThoiGian.Text = s[1] + " phút";
                             lblThoiGianConLai.Text = s[1] + " phút";
+                            clientPath = s[2];
                             break;
 
-                        case ServerResponseType.CloseConnect:
-                            CloseConnect();
-                            break;
                         default:
                             break;
                     }

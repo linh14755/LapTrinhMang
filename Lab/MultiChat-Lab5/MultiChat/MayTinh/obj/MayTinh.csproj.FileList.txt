@@ -1,0 +1,9 @@
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\MayTinh.MayTinh.resources
+obj\Debug\MayTinh.Properties.Resources.resources
+obj\Debug\MayTinh.csproj.GenerateResource.Cache
+bin\Debug\MayTinh.dll
+bin\Debug\MayTinh.pdb
+obj\Debug\MayTinh.dll
+obj\Debug\MayTinh.pdb
+obj\Debug\MayTinh.MangMayTinh.resources

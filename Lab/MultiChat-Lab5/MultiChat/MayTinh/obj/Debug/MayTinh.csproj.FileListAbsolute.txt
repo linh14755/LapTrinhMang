@@ -1,0 +1,9 @@
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\bin\Debug\MayTinh.dll
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\bin\Debug\MayTinh.pdb
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\obj\Debug\MayTinh.MangMayTinh.resources
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\obj\Debug\MayTinh.MayTinh.resources
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\obj\Debug\MayTinh.Properties.Resources.resources
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\obj\Debug\MayTinh.csproj.GenerateResource.cache
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\obj\Debug\MayTinh.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\obj\Debug\MayTinh.dll
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\MayTinh\obj\Debug\MayTinh.pdb

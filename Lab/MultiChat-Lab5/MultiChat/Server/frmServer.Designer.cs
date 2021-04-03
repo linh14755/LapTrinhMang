@@ -279,6 +279,7 @@ namespace Server
             this.cmdChon.TabIndex = 35;
             this.cmdChon.Text = "Chọn";
             this.cmdChon.UseVisualStyleBackColor = true;
+            this.cmdChon.Click += new System.EventHandler(this.cmdChon_Click);
             // 
             // txtClientPath
             // 
@@ -438,6 +439,7 @@ namespace Server
             this.lsvMain.HideSelection = false;
             this.lsvMain.Location = new System.Drawing.Point(13, 21);
             this.lsvMain.Name = "lsvMain";
+            this.lsvMain.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lsvMain.Size = new System.Drawing.Size(1129, 270);
             this.lsvMain.TabIndex = 0;
             this.lsvMain.UseCompatibleStateImageBehavior = false;

@@ -11,6 +11,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Windows.Forms;
+using MayTinh;
 
 namespace Server
 {
@@ -22,12 +23,12 @@ namespace Server
         Thread receive;
         List<Socket> clientList;
         List<String> listIP;
-        List<Button> lbtn;
+        List<MayTinh.MayTinh> mangmaytinh;
+        string serverPath, clientPath;
 
-        int widghtPC = 130;
-        int heightPC = 70;
-        Color CDisconnected = Color.LightBlue;
-        Color CConnected = Color.OrangeRed;
+
+        Brush CDisconnected = Brushes.Red;
+        Brush CConnected = Brushes.Blue;
 
         int counter = 0;
         System.Timers.Timer countdown;
@@ -37,12 +38,15 @@ namespace Server
             CheckForIllegalCrossThreadCalls = false;
             btnDisconnect.Enabled = false;
             cmdBatDauLamBai.Enabled = false;
-            lbtn = new List<Button>();
+            mangmaytinh = new List<MayTinh.MayTinh>();
             Connect();
 
             countdown = new System.Timers.Timer();
             countdown.Elapsed += Countdown_Elapsed;
             countdown.Interval = 1000;
+
+            serverPath = txtServerPath.Text;
+            clientPath = txtClientPath.Text;
         }
 
 
@@ -71,15 +75,7 @@ namespace Server
                         AddList(client);
                         btnDisconnect.Enabled = true;
 
-                        var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
-                        if (lbtn.Count > 0)
-                        {
-                            foreach (var btn in lbtn)
-                            {
-                                if (btn.Tag.ToString() == ipEP) btn.BackColor = CConnected;
-                            }
-                            AddPCToControls(lbtn);
-                        }
+                        ReloadControl(client, CConnected);
 
                         receive = new Thread(Receive);
                         receive.IsBackground = true;
@@ -95,6 +91,24 @@ namespace Server
 
             listenMain.IsBackground = true;
             listenMain.Start();
+        }
+        void ReloadControl(Socket client, Brush color)
+        {
+            if (mangmaytinh.Count > 0)
+            {
+                var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
+                for (int i = 0; i < mangmaytinh.Count; i++)
+                {
+                    if (mangmaytinh[i].IP == ipEP)
+                    {
+                        mangmaytinh[i].TextPhiaDuoi = GetHostName(ipEP);
+                        mangmaytinh[i].MauManHinh = color;
+                        flpMain.Controls[i].Controls.Clear();
+                        flpMain.Controls.Add(mangmaytinh[i]);
+                        flpMain.Controls.SetChildIndex(mangmaytinh[i], i);
+                    }
+                }
+            }
         }
         void CloseConnect()
         {
@@ -125,12 +139,12 @@ namespace Server
                         case ServerResponseType.SendFile:
                             FileResponse fileResponse = container.Data as FileResponse;
                             string fileName = fileResponse.FileInfo.Name;
-                            string filePath = @"D:\baithi\" + fileName;
+                            string filePath = serverPath + @"\" + fileName;
 
 
                             if (!File.Exists(filePath))
                             {
-                                using (var fileStream = File.Create(filePath))
+                                using (FileStream fileStream = File.Create(filePath))
                                 {
                                     fileStream.Write(fileResponse.FileContent, 0, fileResponse.FileContent.Length);
                                 }
@@ -146,12 +160,19 @@ namespace Server
                         case ServerResponseType.SendStudent:
                             SinhVien sv = container.Data as SinhVien;
                             AddMessage(client.RemoteEndPoint.ToString() + ": Thông tin sinh viên đang thao tác trên máy: " + sv.FullNameAndId);
-                            if (lbtn.Count > 0)
+                            if (mangmaytinh.Count > 0)
                             {
-                                foreach (var btn in lbtn)
+                                var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
+                                for (int i = 0; i < mangmaytinh.Count; i++)
                                 {
-                                    var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
-                                    if (btn.Tag.ToString() == ipEP) btn.Text = GetHostName(ipEP) + "\n" + sv.Ten;
+                                    if (mangmaytinh[i].IP == ipEP)
+                                    {
+                                        mangmaytinh[i].TextPhiaDuoi = GetHostName(ipEP);
+                                        mangmaytinh[i].TextTren = sv.Ten;
+                                        flpMain.Controls[i].Controls.Clear();
+                                        flpMain.Controls.Add(mangmaytinh[i]);
+                                        flpMain.Controls.SetChildIndex(mangmaytinh[i], i);
+                                    }
                                 }
                             }
 
@@ -159,6 +180,7 @@ namespace Server
 
                         case ServerResponseType.SendString:
                             AddMessage(client.RemoteEndPoint.ToString() + ": " + container.Data.ToString() + " đã kết nối tới !");
+                            ReloadControl(client, CConnected);
                             break;
 
                         case ServerResponseType.BeginExam:
@@ -178,15 +200,7 @@ namespace Server
             catch
             {
                 AddMessage(client.RemoteEndPoint + ": đóng kết nối. ");
-                if (lbtn.Count > 0)
-                {
-                    var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
-                    foreach (var btn in lbtn)
-                    {
-                        if (btn.Tag.ToString() == ipEP) btn.BackColor = CDisconnected;
-                    }
-                    AddPCToControls(lbtn);
-                }
+                ReloadControl(client, CDisconnected);
 
                 client.Close();
                 clientList.Remove(client);
@@ -243,11 +257,13 @@ namespace Server
         {
             if (MessageBox.Show("Đóng tất cả kết nối đến Client !", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                //CloseConnect();
-                //clientList.Clear();
-                //Connect();
+                foreach (var client in clientList)
+                {
+                    ReloadControl(client, CDisconnected);
+                }
+
                 ServerResponse container = new ServerResponse();
-                container.Type = ServerResponseType.CloseConnect;
+                container.Type = ServerResponseType.LockClient;
 
                 SendAll(container, "đóng kết nối");
             }
@@ -257,7 +273,8 @@ namespace Server
         {
             ServerResponse container = new ServerResponse();
             container.Type = ServerResponseType.SendString;
-            container.Data = "Hello client";
+            container.Data = "Hello Client";
+
 
             SendAll(container, "message");
         }
@@ -336,7 +353,7 @@ namespace Server
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
 
-                    if (frm.GetData() == null || frm.GetData().Rows.Count == 0) { MessageBox.Show("Danh sách trống"); return; };
+                    if (frm.GetData() == null || frm.GetData().Rows.Count == 0) { MessageBox.Show("Danh sách trống."); return; };
                     DataTable data = frm.GetData();
                     List<SinhVien> lsv = new List<SinhVien>();
                     foreach (DataRow row in data.Rows)
@@ -352,7 +369,7 @@ namespace Server
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -385,21 +402,22 @@ namespace Server
             if (lstDeThi.SelectedItem != null && txtMonThi != null && txtThoiGianLamBai != null && clientList.Count > 0)
             {
                 //Send đề
+                //Send Thời gian làm bài và môn thi
                 if (lstDeThi.SelectedItem != null)
                 {
                     try
                     {
-                        FileResponse file = new FileResponse(lstDeThi.SelectedItem.ToString());
-
-                        ServerResponse container = new ServerResponse();
-                        container.Type = ServerResponseType.SendFile;
-                        container.Data = file;
-
-                        SendAll(container, "đề thi");
+                        ServerResponse container = new ServerResponse();   
 
                         container.Type = ServerResponseType.ExamSubjectsAndTime;
-                        container.Data = txtMonThi.Text + "^" + txtThoiGianLamBai.Text;
+                        container.Data = txtMonThi.Text + "^" + txtThoiGianLamBai.Text + "^" + clientPath;
                         SendAll(container, "môn thi và thời gian làm bài");
+
+
+                        FileResponse file = new FileResponse(lstDeThi.SelectedItem.ToString());
+                        container.Type = ServerResponseType.SendFile;
+                        container.Data = file;
+                        SendAll(container, "đề thi");
 
                         cmdBatDauLamBai.Enabled = true;
 
@@ -409,7 +427,6 @@ namespace Server
                         MessageBox.Show("Lỗi trong quá trình gửi file.\n" + ex);
                     }
                 }
-                //Send Thời gian làm bài và môn thi
             }
             else MessageBox.Show("Lỗi trong quá trình gửi file.");
 
@@ -455,31 +472,28 @@ namespace Server
             frmSetIP.ShowDialog();
 
             listIP = InitIpRange(StaticInfo.FirstIP, StaticInfo.LastIP, StaticInfo.SubnetMask);
-            lbtn = new List<Button>();
+            mangmaytinh = new List<MayTinh.MayTinh>();
             foreach (string ip in listIP)
             {
-                Button btn = new Button();
-                btn.Tag = ip;
-                btn.Width = widghtPC;
-                btn.Height = heightPC;
-                btn.Text = ip;
-                btn.BackColor = CDisconnected;
-                foreach (var item in clientList)
+                MayTinh.MayTinh mt = new MayTinh.MayTinh();
+                mt.IP = ip;
+                mt.TextPhiaDuoi = ip;
+                foreach (var client in clientList)
                 {
-                    var ipEP = ((IPEndPoint)(item.RemoteEndPoint)).Address.ToString();
-                    if (ipEP == ip) btn.BackColor = CConnected;
+                    var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
+                    if (ipEP == ip) mt.MauManHinh = CConnected;
                 }
-                lbtn.Add(btn);
+                mangmaytinh.Add(mt);
             }
-            AddPCToControls(lbtn);
+            AddPCToControls(mangmaytinh);
         }
 
-        void AddPCToControls(List<Button> lbtn)
+        void AddPCToControls(List<MayTinh.MayTinh> mangmaytinh)
         {
             flpMain.Controls.Clear();
-            foreach (var item in lbtn)
+            foreach (var mt in mangmaytinh)
             {
-                flpMain.Controls.Add(item);
+                flpMain.Controls.Add(mt);
             }
         }
 
@@ -527,17 +541,35 @@ namespace Server
             return tam;
         }
 
+        private void cmdChon_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                serverPath = txtServerPath.Text;
+                if (!Directory.Exists(serverPath))
+                {
+                    Directory.CreateDirectory(serverPath);
+                }
+                MessageBox.Show("Bài thi sẽ được lưu ở " + serverPath, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void button11_Click(object sender, EventArgs e)
         {
-            if (lbtn.Count > 0)
+            if (mangmaytinh.Count > 0)
             {
-                List<Button> lbutton = new List<Button>();
-                foreach (var btn in lbtn)
+                List<MayTinh.MayTinh> lmaytinh = new List<MayTinh.MayTinh>();
+                foreach (var mt in mangmaytinh)
                 {
-                    if (btn.BackColor != CDisconnected) lbutton.Add(btn);
+                    if (mt.TextTren != "Name") lmaytinh.Add(mt);
                 }
-                lbtn = lbutton;
-                AddPCToControls(lbtn);
+
+                mangmaytinh = lmaytinh;
+                AddPCToControls(mangmaytinh);
             }
         }
     }

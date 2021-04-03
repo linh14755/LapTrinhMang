@@ -115,6 +115,10 @@
       <Project>{5de9279e-5a9a-438d-88af-c52fbb0c0779}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MayTinh\MayTinh.csproj">
+      <Project>{55343be6-710c-41ab-afa5-87abb30d2546}</Project>
+      <Name>MayTinh</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,3 +10,9 @@ D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\obj\Debug\Common.csprojAssemblyRe
 D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\obj\Debug\Common.dll
 D:\LapTrinhMang\Lab\MultiChat\MultiChat\Common\obj\Debug\Common.pdb
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Common\bin\Debug\Common.dll
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Common\bin\Debug\Common.pdb
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Common\obj\Debug\Common.dll
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Common\obj\Debug\Common.pdb
