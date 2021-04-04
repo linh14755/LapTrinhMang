@@ -34,21 +34,19 @@ namespace Client
             countdown.Elapsed += Countdown_Elapsed;
             countdown.Interval = 1000;
 
-            //cmdNopBaiThi.Enabled = false;
+            cmdNopBaiThi.Enabled = false;
         }
-
 
         void Connect(string ipserver)
         {
             IP = new IPEndPoint(IPAddress.Parse(ipserver), 6000);
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-
             try
             {
                 client.Connect(IP);
                 string tenMay = System.Environment.MachineName;
-                MessageBox.Show("Đã kết nối tới - " + GetHostName(ipserver), "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Đã kết nối tới - " + GetHostName(ipserver), "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Text = GetHostName(ipserver) + " - đã kết nối tới";
                 cmdKetNoi.Enabled = false;
 
@@ -151,11 +149,11 @@ namespace Client
             }
             catch
             {
+                CloseConnect();
                 cmdKetNoi.Enabled = true;
                 cmdChapNhan.Enabled = true;
                 this.Text = "Client";
-                MessageBox.Show("Có lỗi xảy ra trong quá trình nhận phản hồi từ server. Đóng kết nối. ");
-                CloseConnect();
+                MessageBox.Show("Kết nối đến server bị đóng. ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -204,21 +202,9 @@ namespace Client
             CloseConnect();
         }
 
-        private void btnSend_Click(object sender, EventArgs e)
-        {
-            //Send();
-            //AddMessage(txbMessage.Text);
-
-        }
-
         private void cmdKetNoi_Click(object sender, EventArgs e)
         {
             Connect(txtKetNoi.Text);
-
-        }
-
-        private void cbDSThi_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -238,10 +224,7 @@ namespace Client
                 try
                 {
                     Send(container);
-                    //cmdChapNhan.Enabled = false;
                     MessageBox.Show("Đã gửi thông tin sinh viên lên server.");
-
-
                 }
                 catch
                 {

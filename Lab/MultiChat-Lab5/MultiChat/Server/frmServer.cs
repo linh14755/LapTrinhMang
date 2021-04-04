@@ -101,9 +101,11 @@ namespace Server
                 {
                     if (mangmaytinh[i].IP == ipEP)
                     {
+                        flpMain.Controls.Remove(mangmaytinh[i]);
+
                         mangmaytinh[i].TextPhiaDuoi = GetHostName(ipEP);
                         mangmaytinh[i].MauManHinh = color;
-                        flpMain.Controls[i].Controls.Clear();
+
                         flpMain.Controls.Add(mangmaytinh[i]);
                         flpMain.Controls.SetChildIndex(mangmaytinh[i], i);
                     }
@@ -112,9 +114,7 @@ namespace Server
         }
         void CloseConnect()
         {
-            if (server != null)
-                server.Close();
-
+            if (server != null) server.Close();
         }
         void Send(Socket client)
         {
@@ -128,7 +128,7 @@ namespace Server
             {
                 while (true)
                 {
-                    byte[] buffer = new byte[1024 * 5000 * 20];
+                    byte[] buffer = new byte[1024 * 5000];
                     client.Receive(buffer);
 
                     object data = Deserialize(buffer);
@@ -167,9 +167,10 @@ namespace Server
                                 {
                                     if (mangmaytinh[i].IP == ipEP)
                                     {
+                                        flpMain.Controls.Remove(mangmaytinh[i]);
                                         mangmaytinh[i].TextPhiaDuoi = GetHostName(ipEP);
                                         mangmaytinh[i].TextTren = sv.Ten;
-                                        flpMain.Controls[i].Controls.Clear();
+
                                         flpMain.Controls.Add(mangmaytinh[i]);
                                         flpMain.Controls.SetChildIndex(mangmaytinh[i], i);
                                     }
@@ -257,13 +258,14 @@ namespace Server
         {
             if (MessageBox.Show("Đóng tất cả kết nối đến Client !", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                foreach (var client in clientList)
-                {
-                    ReloadControl(client, CDisconnected);
-                }
+                //foreach (var client in clientList)
+                //{
+                //    ReloadControl(client, CDisconnected);
+                //}
 
                 ServerResponse container = new ServerResponse();
                 container.Type = ServerResponseType.LockClient;
+                container.Data = "Close";
 
                 SendAll(container, "đóng kết nối");
             }
@@ -407,7 +409,7 @@ namespace Server
                 {
                     try
                     {
-                        ServerResponse container = new ServerResponse();   
+                        ServerResponse container = new ServerResponse();
 
                         container.Type = ServerResponseType.ExamSubjectsAndTime;
                         container.Data = txtMonThi.Text + "^" + txtThoiGianLamBai.Text + "^" + clientPath;

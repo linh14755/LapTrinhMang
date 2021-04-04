@@ -300,7 +300,6 @@ namespace Client
             this.cbDSThi.Size = new System.Drawing.Size(344, 24);
             this.cbDSThi.TabIndex = 0;
             this.cbDSThi.SelectedIndexChanged += new System.EventHandler(this.cbDSThi_SelectedIndexChanged);
-            this.cbDSThi.Click += new System.EventHandler(this.cbDSThi_Click);
             // 
             // frmClient
             // 
