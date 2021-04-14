@@ -46,3 +46,4 @@ D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Server\obj\Debug\Server.csproj.Core
 D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Server\obj\Debug\Server.csproj.CopyComplete
 D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Server\obj\Debug\Server.exe
 D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Server\obj\Debug\Server.pdb
+D:\LapTrinhMang\Lab\MultiChat-Lab5\MultiChat\Server\obj\Debug\Server.frmListStudent.resources

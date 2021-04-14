@@ -29,6 +29,7 @@ namespace Server
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.lbCountdown = new System.Windows.Forms.Label();
@@ -59,15 +60,18 @@ namespace Server
             this.lbFilePath = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.lstDeThi = new System.Windows.Forms.ListBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MainGroupBox = new System.Windows.Forms.GroupBox();
             this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
             this.lsvMain = new System.Windows.Forms.ListView();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.MainGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,8 +133,9 @@ namespace Server
             this.cmdKichHoatAllClient.Name = "cmdKichHoatAllClient";
             this.cmdKichHoatAllClient.Size = new System.Drawing.Size(145, 48);
             this.cmdKichHoatAllClient.TabIndex = 45;
-            this.cmdKichHoatAllClient.Text = "Kích Hoạt Tất Cả Client";
+            this.cmdKichHoatAllClient.Text = "Danh Sách SV Đang Thao Tác";
             this.cmdKichHoatAllClient.UseVisualStyleBackColor = true;
+            this.cmdKichHoatAllClient.Click += new System.EventHandler(this.cmdKichHoatAllClient_Click);
             // 
             // cmdBatDauLamBai
             // 
@@ -269,6 +274,7 @@ namespace Server
             this.cmdChonClientPath.TabIndex = 36;
             this.cmdChonClientPath.Text = "Chọn";
             this.cmdChonClientPath.UseVisualStyleBackColor = true;
+            this.cmdChonClientPath.Click += new System.EventHandler(this.cmdChonClientPath_Click);
             // 
             // cmdChon
             // 
@@ -288,7 +294,7 @@ namespace Server
             this.txtClientPath.Name = "txtClientPath";
             this.txtClientPath.Size = new System.Drawing.Size(159, 22);
             this.txtClientPath.TabIndex = 34;
-            this.txtClientPath.Text = "D:\\";
+            this.txtClientPath.Text = "D:\\client\\";
             // 
             // txtServerPath
             // 
@@ -297,7 +303,7 @@ namespace Server
             this.txtServerPath.Name = "txtServerPath";
             this.txtServerPath.Size = new System.Drawing.Size(159, 22);
             this.txtServerPath.TabIndex = 34;
-            this.txtServerPath.Text = "D:\\";
+            this.txtServerPath.Text = "D:\\baithi\\";
             // 
             // label3
             // 
@@ -405,6 +411,7 @@ namespace Server
             // 
             // lstDeThi
             // 
+            this.lstDeThi.ContextMenuStrip = this.contextMenuStrip1;
             this.lstDeThi.FormattingEnabled = true;
             this.lstDeThi.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lstDeThi.ItemHeight = 16;
@@ -414,6 +421,14 @@ namespace Server
             this.lstDeThi.Size = new System.Drawing.Size(319, 132);
             this.lstDeThi.TabIndex = 30;
             this.lstDeThi.SelectedIndexChanged += new System.EventHandler(this.lstDeThi_SelectedIndexChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(105, 28);
             // 
             // MainGroupBox
             // 
@@ -445,6 +460,13 @@ namespace Server
             this.lsvMain.UseCompatibleStateImageBehavior = false;
             this.lsvMain.View = System.Windows.Forms.View.List;
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
+            this.toolStripMenuItem1.Text = "Xóa";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // frmServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -471,6 +493,7 @@ namespace Server
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.MainGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -511,6 +534,8 @@ namespace Server
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label lbCountdown;
         private System.Windows.Forms.FlowLayoutPanel flpMain;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 

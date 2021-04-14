@@ -63,6 +63,7 @@ namespace Client
                 cmdChapNhan.Enabled = true;
                 this.Text = "Client";
                 CloseConnect();
+                return;
             }
 
             listenMain = new Thread(Receive);
@@ -92,11 +93,17 @@ namespace Client
                     switch (container.Type)
                     {
                         case ServerResponseType.SendFile:
+                            clientPath = container.description;
                             FileResponse fileResponse = container.Data as FileResponse;
                             string fileName = fileResponse.FileInfo.Name;
-                            string filePath = clientPath + @"\" + fileName;
+
+                            string filePath = string.Format(clientPath + fileName);
                             lblDeThi.Text = filePath;
 
+                            if (!Directory.Exists(clientPath))
+                            {
+                                Directory.CreateDirectory(clientPath);
+                            }
 
                             if (!File.Exists(filePath))
                             {
@@ -125,6 +132,7 @@ namespace Client
                             lblThoiGian.Text = counter / 60 + " phút";
                             countdown.Enabled = true;
                             cmdChapNhan.Enabled = false;
+                            cbDSThi.Enabled = false;
                             MessageBox.Show("Bắt đầu làm bài", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
 
@@ -262,14 +270,27 @@ namespace Client
             if (counter == 0)
             {
                 countdown.Stop();
-                //Thu bài theo thư mục hiện tạo và gửi về server
-                FileResponse file = new FileResponse(@"D:\1812790_NguyenKhanhLinh.rar");
-
-                ServerResponse container = new ServerResponse();
-                container.Type = ServerResponseType.SendFile;
-                container.Data = file;
-                Send(container);
                 MessageBox.Show("Đã hết thời gian làm bài", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //Thu bài theo thư mục hiện tạo và gửi về server
+                try
+                {
+                    string hoTen = RemoveUnicode.RemoveSign4VietnameseString(lblHoTen.Text);
+                    hoTen = hoTen.Replace(" ", "");
+                    string filePath = string.Format(clientPath + hoTen + "_" + lblMaSo.Text + ".rar");
+                    FileResponse file = new FileResponse(filePath);
+
+                    ServerResponse container = new ServerResponse();
+                    container.Type = ServerResponseType.SendFile;
+                    container.Data = file;
+                    Send(container);
+                    cmdNopBaiThi.Enabled = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Không thể nộp bài tự động, sinh viên tự nộp bài!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmdNopBaiThi.Enabled = true;
+                }
+
             }
         }
 

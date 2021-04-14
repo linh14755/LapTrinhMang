@@ -98,7 +98,7 @@ namespace Client
             this.txtKetNoi.Name = "txtKetNoi";
             this.txtKetNoi.Size = new System.Drawing.Size(223, 22);
             this.txtKetNoi.TabIndex = 6;
-            this.txtKetNoi.Text = "192.168.1.2";
+            this.txtKetNoi.Text = "192.168.1.10";
             // 
             // cmdNopBaiThi
             // 

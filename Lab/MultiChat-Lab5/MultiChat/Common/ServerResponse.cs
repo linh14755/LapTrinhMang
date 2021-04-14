@@ -24,5 +24,6 @@ namespace Common
     {
         public ServerResponseType Type { get; set; }
         public object Data { get; set; }
+        public string description { get; set; }
     }
 }

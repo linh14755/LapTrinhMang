@@ -13,6 +13,7 @@ using System.Threading;
 using System.Windows.Forms;
 using MayTinh;
 
+
 namespace Server
 {
     public partial class frmServer : Form
@@ -24,7 +25,9 @@ namespace Server
         List<Socket> clientList;
         List<String> listIP;
         List<MayTinh.MayTinh> mangmaytinh;
+        List<String> listClientAndIdStudent;
         string serverPath, clientPath;
+        frmSetIP frmSetIP;
 
 
         Brush CDisconnected = Brushes.Red;
@@ -39,6 +42,9 @@ namespace Server
             btnDisconnect.Enabled = false;
             cmdBatDauLamBai.Enabled = false;
             mangmaytinh = new List<MayTinh.MayTinh>();
+            listClientAndIdStudent = new List<string>();
+            frmSetIP = new frmSetIP();
+
             Connect();
 
             countdown = new System.Timers.Timer();
@@ -140,7 +146,10 @@ namespace Server
                             FileResponse fileResponse = container.Data as FileResponse;
                             string fileName = fileResponse.FileInfo.Name;
                             string filePath = serverPath + @"\" + fileName;
-
+                            if (!Directory.Exists(serverPath))
+                            {
+                                Directory.CreateDirectory(serverPath);
+                            }
 
                             if (!File.Exists(filePath))
                             {
@@ -160,6 +169,7 @@ namespace Server
                         case ServerResponseType.SendStudent:
                             SinhVien sv = container.Data as SinhVien;
                             AddMessage(client.RemoteEndPoint.ToString() + ": Thông tin sinh viên đang thao tác trên máy: " + sv.FullNameAndId);
+                            listClientAndIdStudent.Add(client.RemoteEndPoint.ToString() + " : " + sv.FullNameAndId);
                             if (mangmaytinh.Count > 0)
                             {
                                 var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
@@ -258,11 +268,6 @@ namespace Server
         {
             if (MessageBox.Show("Đóng tất cả kết nối đến Client !", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                //foreach (var client in clientList)
-                //{
-                //    ReloadControl(client, CDisconnected);
-                //}
-
                 ServerResponse container = new ServerResponse();
                 container.Type = ServerResponseType.LockClient;
                 container.Data = "Close";
@@ -377,20 +382,29 @@ namespace Server
 
         private void button3_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "All files (*.*)|*.*" })
+            if (lstDeThi.Items.Count < 2)
             {
-                if (ofd.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "All files (*.*)|*.*" })
                 {
-                    try
+                    if (ofd.ShowDialog() == DialogResult.OK)
                     {
-                        lstDeThi.Items.Add(ofd.FileName);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Thêm file thất bại.\n" + ex);
+                        try
+                        {
+                            foreach (var item in lstDeThi.Items)
+                            {
+                                if (item.ToString() == ofd.FileName.ToString()) return;
+                            }
+                            lstDeThi.Items.Add(ofd.FileName);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Thêm file thất bại.\n" + ex);
+                        }
                     }
                 }
             }
+            else MessageBox.Show("Đề thi không được quá 2");
         }
 
         private void lstDeThi_SelectedIndexChanged(object sender, EventArgs e)
@@ -401,36 +415,57 @@ namespace Server
 
         private void cmdChapNhan_Click(object sender, EventArgs e)
         {
-            if (lstDeThi.SelectedItem != null && txtMonThi != null && txtThoiGianLamBai != null && clientList.Count > 0)
+            if (lstDeThi.Items.Count != 0 && txtMonThi != null && txtThoiGianLamBai != null && clientList.Count > 0)
             {
                 //Send đề
                 //Send Thời gian làm bài và môn thi
-                if (lstDeThi.SelectedItem != null)
+                try
                 {
-                    try
+                    ServerResponse container = new ServerResponse();
+
+                    container.Type = ServerResponseType.ExamSubjectsAndTime;
+                    container.Data = txtMonThi.Text + "^" + txtThoiGianLamBai.Text + "^" + clientPath;
+                    SendAll(container, "môn thi và thời gian làm bài");
+
+
+                    FileResponse file = new FileResponse(lstDeThi.Items[0].ToString());
+                    container.Type = ServerResponseType.SendFile;
+                    container.Data = file;
+                    container.description = clientPath;
+                    if (lstDeThi.Items.Count > 1)
                     {
-                        ServerResponse container = new ServerResponse();
-
-                        container.Type = ServerResponseType.ExamSubjectsAndTime;
-                        container.Data = txtMonThi.Text + "^" + txtThoiGianLamBai.Text + "^" + clientPath;
-                        SendAll(container, "môn thi và thời gian làm bài");
-
-
-                        FileResponse file = new FileResponse(lstDeThi.SelectedItem.ToString());
-                        container.Type = ServerResponseType.SendFile;
-                        container.Data = file;
-                        SendAll(container, "đề thi");
-
-                        cmdBatDauLamBai.Enabled = true;
-
+                        foreach (var client in clientList)
+                        {
+                            var ipep = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
+                            int number = int.Parse(ipep.Split('.')[3]);
+                            //đề lẻ
+                            if ((number % 2) != 0)
+                            {
+                                client.Send(Serialize(container));
+                            }
+                            //đề chẵn
+                            else
+                            {
+                                file = new FileResponse(lstDeThi.Items[1].ToString());
+                                container.Type = ServerResponseType.SendFile;
+                                container.Data = file;
+                                container.description = clientPath;
+                                client.Send(Serialize(container));
+                            }
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show("Lỗi trong quá trình gửi file.\n" + ex);
+                        SendAll(container);
                     }
+                    cmdBatDauLamBai.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi trong quá trình gửi file.\n" + ex);
                 }
             }
-            else MessageBox.Show("Lỗi trong quá trình gửi file.");
+
 
         }
 
@@ -470,9 +505,7 @@ namespace Server
 
         private void cmdNhapVungIP_Click(object sender, EventArgs e)
         {
-            frmSetIP frmSetIP = new frmSetIP();
             frmSetIP.ShowDialog();
-
             listIP = InitIpRange(StaticInfo.FirstIP, StaticInfo.LastIP, StaticInfo.SubnetMask);
             mangmaytinh = new List<MayTinh.MayTinh>();
             foreach (string ip in listIP)
@@ -543,10 +576,41 @@ namespace Server
             return tam;
         }
 
+        private bool IsValidPath(string path, bool allowRelativePaths = false)
+        {
+            bool isValid = true;
+
+            try
+            {
+                string fullPath = Path.GetFullPath(path);
+
+                if (allowRelativePaths)
+                {
+                    isValid = Path.IsPathRooted(path);
+                }
+                else
+                {
+                    string root = Path.GetPathRoot(path);
+                    isValid = string.IsNullOrEmpty(root.Trim(new char[] { '\\', '/' })) == false;
+                }
+            }
+            catch (Exception ex)
+            {
+                isValid = false;
+            }
+
+            return isValid;
+        }
         private void cmdChon_Click(object sender, EventArgs e)
         {
             try
             {
+                if (!IsValidPath(txtServerPath.Text))
+                {
+                    MessageBox.Show("Đường dẫn không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 serverPath = txtServerPath.Text;
                 if (!Directory.Exists(serverPath))
                 {
@@ -558,6 +622,40 @@ namespace Server
             {
                 MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void cmdChonClientPath_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!IsValidPath(txtServerPath.Text))
+                {
+                    MessageBox.Show("Đường dẫn không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                clientPath = txtClientPath.Text;
+
+                MessageBox.Show("Đề thi được gửi đến " + clientPath + "tại Client", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (lstDeThi.SelectedItem != null)
+            {
+                lstDeThi.Items.Remove(lstDeThi.SelectedItem);
+            }
+        }
+
+        private void cmdKichHoatAllClient_Click(object sender, EventArgs e)
+        {
+            frmListStudent frm = new frmListStudent();
+            frm.SetList(listClientAndIdStudent);
+            frm.ShowDialog();
         }
 
         private void button11_Click(object sender, EventArgs e)

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server
+namespace Common
 {
-    class StaticInfo
+    public class StaticInfo
     {
         public static string FirstIP = "";
         public static string LastIP = "";
