@@ -49,7 +49,7 @@ namespace Client
                 {
                     foreach (var item in listprocessname)
                     {
-                        s += item;
+                        s += item+"\n";
                     }
                     MessageBox.Show(s+"\nĐang bị khóa từ server!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
