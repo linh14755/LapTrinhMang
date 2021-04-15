@@ -29,6 +29,7 @@ namespace Client
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cmdKetNoi = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
@@ -51,6 +52,7 @@ namespace Client
             this.label1 = new System.Windows.Forms.Label();
             this.cmdChapNhan = new System.Windows.Forms.Button();
             this.cbDSThi = new System.Windows.Forms.ComboBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -301,6 +303,10 @@ namespace Client
             this.cbDSThi.TabIndex = 0;
             this.cbDSThi.SelectedIndexChanged += new System.EventHandler(this.cbDSThi_SelectedIndexChanged);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // frmClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -347,6 +353,7 @@ namespace Client
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cmdChapNhan;
         private System.Windows.Forms.ComboBox cbDSThi;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

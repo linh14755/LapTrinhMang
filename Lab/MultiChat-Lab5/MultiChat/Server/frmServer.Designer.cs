@@ -61,10 +61,11 @@ namespace Server
             this.button3 = new System.Windows.Forms.Button();
             this.lstDeThi = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainGroupBox = new System.Windows.Forms.GroupBox();
             this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
             this.lsvMain = new System.Windows.Forms.ListView();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLockProgram = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -77,6 +78,7 @@ namespace Server
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnLockProgram);
             this.groupBox4.Controls.Add(this.groupBox6);
             this.groupBox4.Controls.Add(this.cmdNhapVungIP);
             this.groupBox4.Controls.Add(this.cmdKichHoatAllClient);
@@ -98,7 +100,7 @@ namespace Server
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.lbCountdown);
-            this.groupBox6.Location = new System.Drawing.Point(9, 458);
+            this.groupBox6.Location = new System.Drawing.Point(9, 509);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(145, 65);
             this.groupBox6.TabIndex = 1;
@@ -430,6 +432,13 @@ namespace Server
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(105, 28);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(104, 24);
+            this.toolStripMenuItem1.Text = "Xóa";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // MainGroupBox
             // 
             this.MainGroupBox.Controls.Add(this.flpMain);
@@ -460,12 +469,16 @@ namespace Server
             this.lsvMain.UseCompatibleStateImageBehavior = false;
             this.lsvMain.View = System.Windows.Forms.View.List;
             // 
-            // toolStripMenuItem1
+            // btnLockProgram
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
-            this.toolStripMenuItem1.Text = "Xóa";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.btnLockProgram.Location = new System.Drawing.Point(9, 459);
+            this.btnLockProgram.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLockProgram.Name = "btnLockProgram";
+            this.btnLockProgram.Size = new System.Drawing.Size(145, 39);
+            this.btnLockProgram.TabIndex = 47;
+            this.btnLockProgram.Text = "LockProgram";
+            this.btnLockProgram.UseVisualStyleBackColor = true;
+            this.btnLockProgram.Click += new System.EventHandler(this.btnLockProgram_Click);
             // 
             // frmServer
             // 
@@ -536,6 +549,7 @@ namespace Server
         private System.Windows.Forms.FlowLayoutPanel flpMain;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.Button btnLockProgram;
     }
 }
 

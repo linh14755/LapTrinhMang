@@ -35,6 +35,7 @@ namespace Server
 
         int counter = 0;
         System.Timers.Timer countdown;
+        List<string> listprocessname;
         public frmServer()
         {
             InitializeComponent();
@@ -44,6 +45,7 @@ namespace Server
             mangmaytinh = new List<MayTinh.MayTinh>();
             listClientAndIdStudent = new List<string>();
             frmSetIP = new frmSetIP();
+            listprocessname = new List<string>();
 
             Connect();
 
@@ -351,8 +353,8 @@ namespace Server
                 }
             }
         }
-
         private void button10_Click(object sender, EventArgs e)
+
         {
             frmDSThi frm = new frmDSThi();
             try
@@ -656,6 +658,38 @@ namespace Server
             frmListStudent frm = new frmListStudent();
             frm.SetList(listClientAndIdStudent);
             frm.ShowDialog();
+        }
+
+        private void btnLockProgram_Click(object sender, EventArgs e)
+        {
+            frmLockProgramList frm = new frmLockProgramList();
+            foreach (var item in listprocessname)
+            {
+                frm.AddListView(item);
+            }
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                
+                listprocessname = frm.GetListProgram();
+
+                List<string> l = new List<string>();
+                foreach (var item in listprocessname)
+                {
+                    string[] ls = item.Split('\\');
+                    foreach (var s in ls)
+                    {
+                        if (s.Contains(".exe"))
+                        {
+                            var c = s.Split('.')[0];
+                            l.Add(c);
+                        }
+                    }
+                }
+                ServerResponse container = new ServerResponse();
+                container.Data = l;
+                container.Type = ServerResponseType.ListProgramLock;
+                SendAll(container, "danh sách chương trình bị chặn");
+            }
         }
 
         private void button11_Click(object sender, EventArgs e)

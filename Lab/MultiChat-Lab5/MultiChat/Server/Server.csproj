@@ -69,6 +69,12 @@
     <Compile Include="frmListStudent.Designer.cs">
       <DependentUpon>frmListStudent.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLockProgramList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLockProgramList.Designer.cs">
+      <DependentUpon>frmLockProgramList.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmServer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmListStudent.resx">
       <DependentUpon>frmListStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLockProgramList.resx">
+      <DependentUpon>frmLockProgramList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetIP.resx">
       <DependentUpon>frmSetIP.cs</DependentUpon>

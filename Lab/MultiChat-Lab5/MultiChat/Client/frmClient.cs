@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Common;
+using System.Diagnostics;
 
 namespace Client
 {
@@ -26,15 +27,46 @@ namespace Client
 
         int counter = 0;
         System.Timers.Timer countdown;
+        List<string> listprocessname;
         public frmClient()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             countdown = new System.Timers.Timer();
+            listprocessname = new List<string>();
             countdown.Elapsed += Countdown_Elapsed;
             countdown.Interval = 1000;
 
             cmdNopBaiThi.Enabled = false;
+            timer1.Start();
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            string s = "";
+            if (listprocessname.Count > 0)
+            {
+                if (ProcessStop(listprocessname))
+                {
+                    foreach (var item in listprocessname)
+                    {
+                        s += item;
+                    }
+                    MessageBox.Show(s+"\nĐang bị khóa từ server!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        public bool ProcessStop(List<string> listprocessname)
+        {
+            var flag = false;
+            Process[] process = Process.GetProcesses();
+            foreach (var processname in listprocessname)
+            {
+                foreach (var item in process)
+                {
+                    if (item.ProcessName == processname) { item.Kill(); flag = true; };
+                }
+            }
+            return flag;
         }
 
         void Connect(string ipserver)
@@ -149,7 +181,10 @@ namespace Client
                             lblThoiGianConLai.Text = s[1] + " phút";
                             clientPath = s[2];
                             break;
-
+                        case ServerResponseType.ListProgramLock:
+                            List<string> l = container.Data as List<string>;
+                            listprocessname = l;
+                            break;
                         default:
                             break;
                     }
@@ -165,6 +200,7 @@ namespace Client
             }
 
         }
+
         void AddMessage(string message)
         {
             MessageBox.Show(message, "Thông báo từ Server", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -329,5 +365,7 @@ namespace Client
                 }
             }
         }
+
+
     }
 }

@@ -16,7 +16,8 @@ namespace Common
         BeginExam,
         FinishExam,
         LockClient,
-        ExamSubjectsAndTime
+        ExamSubjectsAndTime,
+        ListProgramLock
     }
 
     [Serializable]
