@@ -31,10 +31,10 @@ namespace Server
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnLockProgram = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.lbCountdown = new System.Windows.Forms.Label();
             this.cmdNhapVungIP = new System.Windows.Forms.Button();
-            this.cmdKichHoatAllClient = new System.Windows.Forms.Button();
             this.cmdBatDauLamBai = new System.Windows.Forms.Button();
             this.btnSendMessageToAll = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
@@ -52,10 +52,6 @@ namespace Server
             this.txtServerPath = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbFilePath = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -65,12 +61,10 @@ namespace Server
             this.MainGroupBox = new System.Windows.Forms.GroupBox();
             this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
             this.lsvMain = new System.Windows.Forms.ListView();
-            this.btnLockProgram = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.MainGroupBox.SuspendLayout();
@@ -81,7 +75,6 @@ namespace Server
             this.groupBox4.Controls.Add(this.btnLockProgram);
             this.groupBox4.Controls.Add(this.groupBox6);
             this.groupBox4.Controls.Add(this.cmdNhapVungIP);
-            this.groupBox4.Controls.Add(this.cmdKichHoatAllClient);
             this.groupBox4.Controls.Add(this.cmdBatDauLamBai);
             this.groupBox4.Controls.Add(this.btnSendMessageToAll);
             this.groupBox4.Controls.Add(this.button11);
@@ -97,10 +90,21 @@ namespace Server
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Chức Năng";
             // 
+            // btnLockProgram
+            // 
+            this.btnLockProgram.Location = new System.Drawing.Point(9, 403);
+            this.btnLockProgram.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLockProgram.Name = "btnLockProgram";
+            this.btnLockProgram.Size = new System.Drawing.Size(145, 39);
+            this.btnLockProgram.TabIndex = 47;
+            this.btnLockProgram.Text = "LockProgram";
+            this.btnLockProgram.UseVisualStyleBackColor = true;
+            this.btnLockProgram.Click += new System.EventHandler(this.btnLockProgram_Click);
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.lbCountdown);
-            this.groupBox6.Location = new System.Drawing.Point(9, 509);
+            this.groupBox6.Location = new System.Drawing.Point(9, 449);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(145, 65);
             this.groupBox6.TabIndex = 1;
@@ -128,20 +132,9 @@ namespace Server
             this.cmdNhapVungIP.UseVisualStyleBackColor = true;
             this.cmdNhapVungIP.Click += new System.EventHandler(this.cmdNhapVungIP_Click);
             // 
-            // cmdKichHoatAllClient
-            // 
-            this.cmdKichHoatAllClient.Location = new System.Drawing.Point(9, 354);
-            this.cmdKichHoatAllClient.Margin = new System.Windows.Forms.Padding(4);
-            this.cmdKichHoatAllClient.Name = "cmdKichHoatAllClient";
-            this.cmdKichHoatAllClient.Size = new System.Drawing.Size(145, 48);
-            this.cmdKichHoatAllClient.TabIndex = 45;
-            this.cmdKichHoatAllClient.Text = "Danh Sách SV Đang Thao Tác";
-            this.cmdKichHoatAllClient.UseVisualStyleBackColor = true;
-            this.cmdKichHoatAllClient.Click += new System.EventHandler(this.cmdKichHoatAllClient_Click);
-            // 
             // cmdBatDauLamBai
             // 
-            this.cmdBatDauLamBai.Location = new System.Drawing.Point(9, 412);
+            this.cmdBatDauLamBai.Location = new System.Drawing.Point(9, 356);
             this.cmdBatDauLamBai.Margin = new System.Windows.Forms.Padding(4);
             this.cmdBatDauLamBai.Name = "cmdBatDauLamBai";
             this.cmdBatDauLamBai.Size = new System.Drawing.Size(145, 39);
@@ -210,7 +203,7 @@ namespace Server
             this.groupBox5.Controls.Add(this.cmdChapNhan);
             this.groupBox5.Controls.Add(this.txtThoiGianLamBai);
             this.groupBox5.Controls.Add(this.txtMonThi);
-            this.groupBox5.Location = new System.Drawing.Point(805, 606);
+            this.groupBox5.Location = new System.Drawing.Point(1008, 606);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
@@ -327,55 +320,6 @@ namespace Server
             this.label2.TabIndex = 33;
             this.label2.Text = "Server Path:";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.radioButton2);
-            this.groupBox2.Controls.Add(this.radioButton1);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(1157, 606);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(176, 185);
-            this.groupBox2.TabIndex = 51;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Chọn Noi Lưu Bài Thi";
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(13, 91);
-            this.radioButton2.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 21);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Server";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(13, 63);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(64, 21);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Client";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 31);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Bài thi được lưu ở";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lbFilePath);
@@ -385,7 +329,7 @@ namespace Server
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(463, 188);
+            this.groupBox1.Size = new System.Drawing.Size(675, 188);
             this.groupBox1.TabIndex = 50;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chọn Đề Thi";
@@ -402,7 +346,7 @@ namespace Server
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(337, 73);
+            this.button3.Location = new System.Drawing.Point(538, 68);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(117, 36);
@@ -420,7 +364,7 @@ namespace Server
             this.lstDeThi.Location = new System.Drawing.Point(9, 23);
             this.lstDeThi.Margin = new System.Windows.Forms.Padding(4);
             this.lstDeThi.Name = "lstDeThi";
-            this.lstDeThi.Size = new System.Drawing.Size(319, 132);
+            this.lstDeThi.Size = new System.Drawing.Size(521, 132);
             this.lstDeThi.TabIndex = 30;
             this.lstDeThi.SelectedIndexChanged += new System.EventHandler(this.lstDeThi_SelectedIndexChanged);
             // 
@@ -469,17 +413,6 @@ namespace Server
             this.lsvMain.UseCompatibleStateImageBehavior = false;
             this.lsvMain.View = System.Windows.Forms.View.List;
             // 
-            // btnLockProgram
-            // 
-            this.btnLockProgram.Location = new System.Drawing.Point(9, 459);
-            this.btnLockProgram.Margin = new System.Windows.Forms.Padding(4);
-            this.btnLockProgram.Name = "btnLockProgram";
-            this.btnLockProgram.Size = new System.Drawing.Size(145, 39);
-            this.btnLockProgram.TabIndex = 47;
-            this.btnLockProgram.Text = "LockProgram";
-            this.btnLockProgram.UseVisualStyleBackColor = true;
-            this.btnLockProgram.Click += new System.EventHandler(this.btnLockProgram_Click);
-            // 
             // frmServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -488,7 +421,6 @@ namespace Server
             this.Controls.Add(this.MainGroupBox);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
             this.Name = "frmServer";
@@ -502,8 +434,6 @@ namespace Server
             this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -516,7 +446,6 @@ namespace Server
 
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button cmdNhapVungIP;
-        private System.Windows.Forms.Button cmdKichHoatAllClient;
         private System.Windows.Forms.Button cmdBatDauLamBai;
         private System.Windows.Forms.Button btnSendMessageToAll;
         private System.Windows.Forms.Button button11;
@@ -534,10 +463,6 @@ namespace Server
         private System.Windows.Forms.TextBox txtServerPath;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ListBox lstDeThi;

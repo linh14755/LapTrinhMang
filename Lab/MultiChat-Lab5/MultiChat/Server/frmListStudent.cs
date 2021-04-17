@@ -18,6 +18,7 @@ namespace Server
         }
         public void SetList(List<string> listClientAndIdStudent)
         {
+            lvMain.Items.Clear();
             if(listClientAndIdStudent != null)
             {
                 foreach (var item in listClientAndIdStudent)

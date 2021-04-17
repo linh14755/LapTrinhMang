@@ -38,6 +38,7 @@ namespace Client
             countdown.Interval = 1000;
 
             cmdNopBaiThi.Enabled = false;
+            timer1.Interval = 10000;
             timer1.Start();
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -306,7 +307,6 @@ namespace Client
             if (counter == 0)
             {
                 countdown.Stop();
-                MessageBox.Show("Đã hết thời gian làm bài", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 //Thu bài theo thư mục hiện tạo và gửi về server
                 try
                 {
@@ -319,7 +319,10 @@ namespace Client
                     container.Type = ServerResponseType.SendFile;
                     container.Data = file;
                     Send(container);
-                    cmdNopBaiThi.Enabled = false;
+                    cmdNopBaiThi.Enabled = true;
+                    cmdChapNhan.Enabled = true;
+                    cmdKetNoi.Enabled = true;
+                    MessageBox.Show("Đã hết thời gian làm bài", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 catch (Exception ex)
                 {

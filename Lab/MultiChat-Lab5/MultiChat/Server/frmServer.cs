@@ -12,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Windows.Forms;
 using MayTinh;
-
+using System.Linq;
 
 namespace Server
 {
@@ -35,6 +35,7 @@ namespace Server
 
         int counter = 0;
         System.Timers.Timer countdown;
+        System.Timers.Timer timeSendFile;
         List<string> listprocessname;
         public frmServer()
         {
@@ -49,6 +50,7 @@ namespace Server
 
             Connect();
 
+            timeSendFile = new System.Timers.Timer();
             countdown = new System.Timers.Timer();
             countdown.Elapsed += Countdown_Elapsed;
             countdown.Interval = 1000;
@@ -56,13 +58,8 @@ namespace Server
             serverPath = txtServerPath.Text;
             clientPath = txtClientPath.Text;
         }
+        #region Method
 
-
-        //Thêm Socket vào list
-        void AddList(Socket s)
-        {
-            clientList.Add(s);
-        }
         void Connect()
         {
             clientList = new List<Socket>();
@@ -99,26 +96,6 @@ namespace Server
 
             listenMain.IsBackground = true;
             listenMain.Start();
-        }
-        void ReloadControl(Socket client, Brush color)
-        {
-            if (mangmaytinh.Count > 0)
-            {
-                var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
-                for (int i = 0; i < mangmaytinh.Count; i++)
-                {
-                    if (mangmaytinh[i].IP == ipEP)
-                    {
-                        flpMain.Controls.Remove(mangmaytinh[i]);
-
-                        mangmaytinh[i].TextPhiaDuoi = GetHostName(ipEP);
-                        mangmaytinh[i].MauManHinh = color;
-
-                        flpMain.Controls.Add(mangmaytinh[i]);
-                        flpMain.Controls.SetChildIndex(mangmaytinh[i], i);
-                    }
-                }
-            }
         }
         void CloseConnect()
         {
@@ -220,10 +197,6 @@ namespace Server
             }
 
         }
-        void AddMessage(string message)
-        {
-            lsvMain.Items.Add(new ListViewItem() { Text = message });
-        }
         byte[] Serialize(object obj)
         {
             MemoryStream stream = new MemoryStream();
@@ -232,7 +205,6 @@ namespace Server
             formater.Serialize(stream, obj);
             return stream.ToArray();
         }
-
         object Deserialize(byte[] data)
         {
             MemoryStream stream = new MemoryStream(data);
@@ -240,6 +212,10 @@ namespace Server
 
 
             return formater.Deserialize(stream);
+        }
+        void AddList(Socket s)
+        {
+            clientList.Add(s);
         }
         public string GetHostName(string ipAddress)
         {
@@ -260,6 +236,104 @@ namespace Server
 
             return null;
         }
+        void ReloadControl(Socket client, Brush color)
+        {
+            if (mangmaytinh.Count > 0)
+            {
+                var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
+                for (int i = 0; i < mangmaytinh.Count; i++)
+                {
+                    if (mangmaytinh[i].IP == ipEP)
+                    {
+                        flpMain.Controls.Remove(mangmaytinh[i]);
+
+                        mangmaytinh[i].TextPhiaDuoi = GetHostName(ipEP);
+                        mangmaytinh[i].MauManHinh = color;
+
+                        flpMain.Controls.Add(mangmaytinh[i]);
+                        flpMain.Controls.SetChildIndex(mangmaytinh[i], i);
+                    }
+                }
+            }
+        }
+        void AddMessage(string message)
+        {
+            lsvMain.Items.Add(new ListViewItem() { Text = message });
+        }
+        void SendAll(object container, string sendinfo = null)
+        {
+            byte[] buffer = Serialize(container);
+
+            foreach (Socket client in clientList)
+            {
+                try
+                {
+                    client.Send(buffer);
+                    AddMessage(client.RemoteEndPoint.ToString() + ": " + "Đã gửi " + sendinfo + " thành công");
+                }
+                catch (Exception)
+                {
+                    AddMessage(client.RemoteEndPoint.ToString() + ": " + "Đã xảy ra sự cố trong quá trình gửi " + sendinfo + ". Đã đóng kết nối");
+
+                    clientList.Remove(client);
+                    client.Close();
+                }
+            }
+        }
+        void AddPCToControls(List<MayTinh.MayTinh> mangmaytinh)
+        {
+            flpMain.Controls.Clear();
+            foreach (var mt in mangmaytinh)
+            {
+                flpMain.Controls.Add(mt);
+            }
+        }
+        public List<String> InitIpRange(string FirstIP, string LastIP, string SubnetMask)
+        {
+            List<String> listIP = new List<String>();
+            try
+            {
+                string s1 = "", s2 = "";
+                int y = 0, x = 0, z = 0, t = 0;
+                if (FirstIP != "")
+                {
+                    s1 = FirstIP.Substring(0, FirstIP.LastIndexOf("."));
+                    x = int.Parse(FirstIP.Substring(FirstIP.LastIndexOf(".") + 1));
+                }
+                if (LastIP != "")
+                {
+                    s2 = LastIP.Substring(0, LastIP.LastIndexOf("."));
+                    y = int.Parse(LastIP.Substring(LastIP.LastIndexOf(".") + 1));
+                }
+                t = y - x;
+                if (SubnetMask != "")
+                    z = 256 - int.Parse(SubnetMask.Substring(SubnetMask.LastIndexOf(".") + 1));
+                if (x < 255 && y < 255 && s1.CompareTo(s2) == 0)
+                    listIP = XuatIP(x, y, z, s1);
+                else
+                    MessageBox.Show("Nhập sai");
+            }
+            catch
+            {
+                MessageBox.Show("Nhập IP sai");
+            }
+            return listIP;
+        }
+
+        public List<String> XuatIP(int batdau, int cuoi, int chieudai, string vungiptruoc = "192.168.255.")
+        {
+            List<String> tam = new List<String>();
+            for (int i = batdau; i < chieudai && i <= cuoi; i++)
+            {
+                string ip = vungiptruoc + "." + i.ToString();
+
+                tam.Add(ip);
+            }
+            return tam;
+        }
+
+        #endregion
+        #region Events
 
         private void frmServer_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -333,26 +407,6 @@ namespace Server
             SendAll(container, "danh sách sinh viên");
         }
 
-        void SendAll(object container, string sendinfo = null)
-        {
-            byte[] buffer = Serialize(container);
-
-            foreach (Socket client in clientList)
-            {
-                try
-                {
-                    client.Send(buffer);
-                    AddMessage(client.RemoteEndPoint.ToString() + ": " + "Đã gửi " + sendinfo + " thành công");
-                }
-                catch (Exception)
-                {
-                    AddMessage(client.RemoteEndPoint.ToString() + ": " + "Đã xảy ra sự cố trong quá trình gửi " + sendinfo + ". Đã đóng kết nối");
-
-                    clientList.Remove(client);
-                    client.Close();
-                }
-            }
-        }
         private void button10_Click(object sender, EventArgs e)
 
         {
@@ -419,8 +473,8 @@ namespace Server
         {
             if (lstDeThi.Items.Count != 0 && txtMonThi != null && txtThoiGianLamBai != null && clientList.Count > 0)
             {
-                //Send đề
                 //Send Thời gian làm bài và môn thi
+                //Send đề
                 try
                 {
                     ServerResponse container = new ServerResponse();
@@ -430,37 +484,10 @@ namespace Server
                     SendAll(container, "môn thi và thời gian làm bài");
 
 
-                    FileResponse file = new FileResponse(lstDeThi.Items[0].ToString());
-                    container.Type = ServerResponseType.SendFile;
-                    container.Data = file;
-                    container.description = clientPath;
-                    if (lstDeThi.Items.Count > 1)
-                    {
-                        foreach (var client in clientList)
-                        {
-                            var ipep = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
-                            int number = int.Parse(ipep.Split('.')[3]);
-                            //đề lẻ
-                            if ((number % 2) != 0)
-                            {
-                                client.Send(Serialize(container));
-                            }
-                            //đề chẵn
-                            else
-                            {
-                                file = new FileResponse(lstDeThi.Items[1].ToString());
-                                container.Type = ServerResponseType.SendFile;
-                                container.Data = file;
-                                container.description = clientPath;
-                                client.Send(Serialize(container));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        SendAll(container);
-                    }
-                    cmdBatDauLamBai.Enabled = true;
+                    timeSendFile.Interval = 4000;
+                    timeSendFile.Elapsed += Timer_Elapsed;
+                    timeSendFile.Start();
+
                 }
                 catch (Exception ex)
                 {
@@ -469,6 +496,51 @@ namespace Server
             }
 
 
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+                ServerResponse container = new ServerResponse();
+                FileResponse file = new FileResponse(lstDeThi.Items[0].ToString());
+                container.Type = ServerResponseType.SendFile;
+                container.Data = file;
+                container.description = clientPath;
+                if (lstDeThi.Items.Count > 1)
+                {
+                    foreach (var client in clientList)
+                    {
+                        var ipep = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
+                        int number = int.Parse(ipep.Split('.')[3]);
+                        //đề lẻ
+                        if ((number % 2) != 0)
+                        {
+                            client.Send(Serialize(container));
+                        }
+                        //đề chẵn
+                        else
+                        {
+                            file = new FileResponse(lstDeThi.Items[1].ToString());
+                            container.Type = ServerResponseType.SendFile;
+                            container.Data = file;
+                            container.description = clientPath;
+                            client.Send(Serialize(container));
+                        }
+                    }
+                }
+                else
+                {
+                    SendAll(container);
+                }
+                cmdBatDauLamBai.Enabled = true;
+                timeSendFile.Stop();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi trong quá trình gửi file.\n" + ex);
+                timeSendFile.Stop();
+            }
         }
 
         private void cmdBatDauLamBai_Click(object sender, EventArgs e)
@@ -487,7 +559,6 @@ namespace Server
                 SendAll(container, "thời gian làm bài");
             }
         }
-
         private void Countdown_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             counter -= 1;
@@ -504,7 +575,6 @@ namespace Server
                 cmdBatDauLamBai.Enabled = true;
             }
         }
-
         private void cmdNhapVungIP_Click(object sender, EventArgs e)
         {
             frmSetIP.ShowDialog();
@@ -524,60 +594,6 @@ namespace Server
             }
             AddPCToControls(mangmaytinh);
         }
-
-        void AddPCToControls(List<MayTinh.MayTinh> mangmaytinh)
-        {
-            flpMain.Controls.Clear();
-            foreach (var mt in mangmaytinh)
-            {
-                flpMain.Controls.Add(mt);
-            }
-        }
-
-        public List<String> InitIpRange(string FirstIP, string LastIP, string SubnetMask)
-        {
-            List<String> listIP = new List<String>();
-            try
-            {
-                string s1 = "", s2 = "";
-                int y = 0, x = 0, z = 0, t = 0;
-                if (FirstIP != "")
-                {
-                    s1 = FirstIP.Substring(0, FirstIP.LastIndexOf("."));
-                    x = int.Parse(FirstIP.Substring(FirstIP.LastIndexOf(".") + 1));
-                }
-                if (LastIP != "")
-                {
-                    s2 = LastIP.Substring(0, LastIP.LastIndexOf("."));
-                    y = int.Parse(LastIP.Substring(LastIP.LastIndexOf(".") + 1));
-                }
-                t = y - x;
-                if (SubnetMask != "")
-                    z = 256 - int.Parse(SubnetMask.Substring(SubnetMask.LastIndexOf(".") + 1));
-                if (x < 255 && y < 255 && s1.CompareTo(s2) == 0)
-                    listIP = XuatIP(x, y, z, s1);
-                else
-                    MessageBox.Show("Nhập sai");
-            }
-            catch
-            {
-                MessageBox.Show("Nhập IP sai");
-            }
-            return listIP;
-        }
-
-        public List<String> XuatIP(int batdau, int cuoi, int chieudai, string vungiptruoc = "192.168.255.")
-        {
-            List<String> tam = new List<String>();
-            for (int i = batdau; i < chieudai && i <= cuoi; i++)
-            {
-                string ip = vungiptruoc + "." + i.ToString();
-
-                tam.Add(ip);
-            }
-            return tam;
-        }
-
         private bool IsValidPath(string path, bool allowRelativePaths = false)
         {
             bool isValid = true;
@@ -669,7 +685,7 @@ namespace Server
             }
             if (frm.ShowDialog() == DialogResult.OK)
             {
-                
+
                 listprocessname = frm.GetListProgram();
 
                 List<string> l = new List<string>();
@@ -706,6 +722,7 @@ namespace Server
                 AddPCToControls(mangmaytinh);
             }
         }
+        #endregion
     }
 }
 
