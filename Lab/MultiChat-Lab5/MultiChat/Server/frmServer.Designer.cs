@@ -31,6 +31,9 @@ namespace Server
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cmdKichHoatAllClient = new System.Windows.Forms.Button();
+            this.btnRestartProgram = new System.Windows.Forms.Button();
+            this.btnCloseProgram = new System.Windows.Forms.Button();
             this.btnLockProgram = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.lbCountdown = new System.Windows.Forms.Label();
@@ -72,6 +75,9 @@ namespace Server
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cmdKichHoatAllClient);
+            this.groupBox4.Controls.Add(this.btnRestartProgram);
+            this.groupBox4.Controls.Add(this.btnCloseProgram);
             this.groupBox4.Controls.Add(this.btnLockProgram);
             this.groupBox4.Controls.Add(this.groupBox6);
             this.groupBox4.Controls.Add(this.cmdNhapVungIP);
@@ -85,14 +91,47 @@ namespace Server
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(165, 582);
+            this.groupBox4.Size = new System.Drawing.Size(165, 650);
             this.groupBox4.TabIndex = 49;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Chức Năng";
             // 
+            // cmdKichHoatAllClient
+            // 
+            this.cmdKichHoatAllClient.Location = new System.Drawing.Point(8, 540);
+            this.cmdKichHoatAllClient.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdKichHoatAllClient.Name = "cmdKichHoatAllClient";
+            this.cmdKichHoatAllClient.Size = new System.Drawing.Size(145, 39);
+            this.cmdKichHoatAllClient.TabIndex = 50;
+            this.cmdKichHoatAllClient.Text = "DS Điểm Danh";
+            this.cmdKichHoatAllClient.UseVisualStyleBackColor = true;
+            this.cmdKichHoatAllClient.Click += new System.EventHandler(this.cmdKichHoatAllClient_Click_1);
+            // 
+            // btnRestartProgram
+            // 
+            this.btnRestartProgram.Location = new System.Drawing.Point(8, 493);
+            this.btnRestartProgram.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRestartProgram.Name = "btnRestartProgram";
+            this.btnRestartProgram.Size = new System.Drawing.Size(145, 39);
+            this.btnRestartProgram.TabIndex = 49;
+            this.btnRestartProgram.Text = "Restart All Client";
+            this.btnRestartProgram.UseVisualStyleBackColor = true;
+            this.btnRestartProgram.Click += new System.EventHandler(this.btnRestartProgram_Click);
+            // 
+            // btnCloseProgram
+            // 
+            this.btnCloseProgram.Location = new System.Drawing.Point(8, 446);
+            this.btnCloseProgram.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCloseProgram.Name = "btnCloseProgram";
+            this.btnCloseProgram.Size = new System.Drawing.Size(145, 39);
+            this.btnCloseProgram.TabIndex = 48;
+            this.btnCloseProgram.Text = "Close All Client";
+            this.btnCloseProgram.UseVisualStyleBackColor = true;
+            this.btnCloseProgram.Click += new System.EventHandler(this.btnCloseProgram_Click);
+            // 
             // btnLockProgram
             // 
-            this.btnLockProgram.Location = new System.Drawing.Point(9, 403);
+            this.btnLockProgram.Location = new System.Drawing.Point(9, 399);
             this.btnLockProgram.Margin = new System.Windows.Forms.Padding(4);
             this.btnLockProgram.Name = "btnLockProgram";
             this.btnLockProgram.Size = new System.Drawing.Size(145, 39);
@@ -104,7 +143,7 @@ namespace Server
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.lbCountdown);
-            this.groupBox6.Location = new System.Drawing.Point(9, 449);
+            this.groupBox6.Location = new System.Drawing.Point(9, 578);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(145, 65);
             this.groupBox6.TabIndex = 1;
@@ -123,7 +162,7 @@ namespace Server
             // 
             // cmdNhapVungIP
             // 
-            this.cmdNhapVungIP.Location = new System.Drawing.Point(9, 26);
+            this.cmdNhapVungIP.Location = new System.Drawing.Point(9, 23);
             this.cmdNhapVungIP.Margin = new System.Windows.Forms.Padding(4);
             this.cmdNhapVungIP.Name = "cmdNhapVungIP";
             this.cmdNhapVungIP.Size = new System.Drawing.Size(145, 37);
@@ -134,7 +173,7 @@ namespace Server
             // 
             // cmdBatDauLamBai
             // 
-            this.cmdBatDauLamBai.Location = new System.Drawing.Point(9, 356);
+            this.cmdBatDauLamBai.Location = new System.Drawing.Point(9, 352);
             this.cmdBatDauLamBai.Margin = new System.Windows.Forms.Padding(4);
             this.cmdBatDauLamBai.Name = "cmdBatDauLamBai";
             this.cmdBatDauLamBai.Size = new System.Drawing.Size(145, 39);
@@ -145,7 +184,7 @@ namespace Server
             // 
             // btnSendMessageToAll
             // 
-            this.btnSendMessageToAll.Location = new System.Drawing.Point(9, 116);
+            this.btnSendMessageToAll.Location = new System.Drawing.Point(9, 112);
             this.btnSendMessageToAll.Margin = new System.Windows.Forms.Padding(4);
             this.btnSendMessageToAll.Name = "btnSendMessageToAll";
             this.btnSendMessageToAll.Size = new System.Drawing.Size(145, 49);
@@ -156,7 +195,7 @@ namespace Server
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(9, 293);
+            this.button11.Location = new System.Drawing.Point(9, 289);
             this.button11.Margin = new System.Windows.Forms.Padding(4);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(145, 53);
@@ -167,7 +206,7 @@ namespace Server
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(9, 233);
+            this.button10.Location = new System.Drawing.Point(9, 229);
             this.button10.Margin = new System.Windows.Forms.Padding(4);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(145, 53);
@@ -178,7 +217,7 @@ namespace Server
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(9, 171);
+            this.button9.Location = new System.Drawing.Point(9, 167);
             this.button9.Margin = new System.Windows.Forms.Padding(4);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(145, 53);
@@ -189,7 +228,7 @@ namespace Server
             // 
             // btnDisconnect
             // 
-            this.btnDisconnect.Location = new System.Drawing.Point(9, 70);
+            this.btnDisconnect.Location = new System.Drawing.Point(9, 66);
             this.btnDisconnect.Margin = new System.Windows.Forms.Padding(4);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(145, 37);
@@ -203,7 +242,7 @@ namespace Server
             this.groupBox5.Controls.Add(this.cmdChapNhan);
             this.groupBox5.Controls.Add(this.txtThoiGianLamBai);
             this.groupBox5.Controls.Add(this.txtMonThi);
-            this.groupBox5.Location = new System.Drawing.Point(1008, 606);
+            this.groupBox5.Location = new System.Drawing.Point(1008, 674);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
@@ -251,7 +290,7 @@ namespace Server
             this.groupBox3.Controls.Add(this.txtServerPath);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(13, 603);
+            this.groupBox3.Location = new System.Drawing.Point(13, 671);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
@@ -325,11 +364,11 @@ namespace Server
             this.groupBox1.Controls.Add(this.lbFilePath);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.lstDeThi);
-            this.groupBox1.Location = new System.Drawing.Point(325, 606);
+            this.groupBox1.Location = new System.Drawing.Point(325, 674);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(675, 188);
+            this.groupBox1.Size = new System.Drawing.Size(675, 185);
             this.groupBox1.TabIndex = 50;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chọn Đề Thi";
@@ -389,7 +428,7 @@ namespace Server
             this.MainGroupBox.Controls.Add(this.lsvMain);
             this.MainGroupBox.Location = new System.Drawing.Point(185, 20);
             this.MainGroupBox.Name = "MainGroupBox";
-            this.MainGroupBox.Size = new System.Drawing.Size(1148, 576);
+            this.MainGroupBox.Size = new System.Drawing.Size(1148, 643);
             this.MainGroupBox.TabIndex = 30;
             this.MainGroupBox.TabStop = false;
             this.MainGroupBox.Text = "Thông tin Server";
@@ -397,9 +436,9 @@ namespace Server
             // flpMain
             // 
             this.flpMain.AutoScroll = true;
-            this.flpMain.Location = new System.Drawing.Point(13, 297);
+            this.flpMain.Location = new System.Drawing.Point(13, 301);
             this.flpMain.Name = "flpMain";
-            this.flpMain.Size = new System.Drawing.Size(1129, 270);
+            this.flpMain.Size = new System.Drawing.Size(1129, 340);
             this.flpMain.TabIndex = 1;
             // 
             // lsvMain
@@ -417,7 +456,7 @@ namespace Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1357, 803);
+            this.ClientSize = new System.Drawing.Size(1357, 945);
             this.Controls.Add(this.MainGroupBox);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
@@ -475,6 +514,9 @@ namespace Server
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Button btnLockProgram;
+        private System.Windows.Forms.Button btnRestartProgram;
+        private System.Windows.Forms.Button btnCloseProgram;
+        private System.Windows.Forms.Button cmdKichHoatAllClient;
     }
 }
 

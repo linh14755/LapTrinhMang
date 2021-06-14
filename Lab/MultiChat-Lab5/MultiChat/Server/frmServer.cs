@@ -148,7 +148,7 @@ namespace Server
                         case ServerResponseType.SendStudent:
                             SinhVien sv = container.Data as SinhVien;
                             AddMessage(client.RemoteEndPoint.ToString() + ": Thông tin sinh viên đang thao tác trên máy: " + sv.FullNameAndId);
-                            listClientAndIdStudent.Add(client.RemoteEndPoint.ToString() + " : " + sv.FullNameAndId);
+                            listClientAndIdStudent.Add(sv.FullNameAndId);
                             if (mangmaytinh.Count > 0)
                             {
                                 var ipEP = ((IPEndPoint)(client.RemoteEndPoint)).Address.ToString();
@@ -158,7 +158,7 @@ namespace Server
                                     {
                                         flpMain.Controls.Remove(mangmaytinh[i]);
                                         mangmaytinh[i].TextPhiaDuoi = GetHostName(ipEP);
-                                        mangmaytinh[i].TextTren = sv.Ten;
+                                        mangmaytinh[i].TextTren = sv.Mssv.ToString();
 
                                         flpMain.Controls.Add(mangmaytinh[i]);
                                         flpMain.Controls.SetChildIndex(mangmaytinh[i], i);
@@ -669,12 +669,6 @@ namespace Server
             }
         }
 
-        private void cmdKichHoatAllClient_Click(object sender, EventArgs e)
-        {
-            frmListStudent frm = new frmListStudent();
-            frm.SetList(listClientAndIdStudent);
-            frm.ShowDialog();
-        }
 
         private void btnLockProgram_Click(object sender, EventArgs e)
         {
@@ -706,6 +700,30 @@ namespace Server
                 container.Type = ServerResponseType.ListProgramLock;
                 SendAll(container, "danh sách chương trình bị chặn");
             }
+        }
+
+        private void btnCloseProgram_Click(object sender, EventArgs e)
+        {
+            ServerResponse container = new ServerResponse();
+            container.Type = ServerResponseType.CloseProgram;
+            container.Data = "Close Program";
+            SendAll(container);
+        }
+
+        private void btnRestartProgram_Click(object sender, EventArgs e)
+        {
+            ServerResponse container = new ServerResponse();
+            container.Type = ServerResponseType.RestartProgram;
+            container.Data = "Restart Program";
+            SendAll(container);
+        }
+
+        private void cmdKichHoatAllClient_Click_1(object sender, EventArgs e)
+        {
+            frmListStudent frm = new frmListStudent();
+            frm.SetList(listClientAndIdStudent);
+            frm.SetFilepath(serverPath);
+            frm.ShowDialog();
         }
 
         private void button11_Click(object sender, EventArgs e)

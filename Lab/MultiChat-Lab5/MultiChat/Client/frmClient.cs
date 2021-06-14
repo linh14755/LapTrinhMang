@@ -186,6 +186,12 @@ namespace Client
                             List<string> l = container.Data as List<string>;
                             listprocessname = l;
                             break;
+                        case ServerResponseType.CloseProgram:
+                            Application.Exit();
+                            break;
+                        case ServerResponseType.RestartProgram:
+                            Application.Restart();
+                            break;
                         default:
                             break;
                     }
